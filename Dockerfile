@@ -25,7 +25,7 @@ WORKDIR /app
 COPY . ./
 RUN npm install
 # RUN npm run test
-# RUN npm run build
+RUN npm run build
 
 
 # production environment
