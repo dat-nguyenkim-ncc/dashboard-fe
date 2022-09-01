@@ -65,7 +65,8 @@ pipeline {
                                      execCommand: "mkdir -p ${env.DEPLOY_DIR}"
                                  ),
                                  sshTransfer(
-                                     execCommand: "export DOCKER_IMAGE=${env.DOCKER_IMAGE} && export DOCKER_TAG=fe-latest && cd ${env.DEPLOY_DIR} && docker-compose down"
+                                     execCommand: "export DOCKER_IMAGE=tampfptcapstoneproject/tamp && export DOCKER_TAG=fe-latest && cd ${env.DEPLOY_DIR} && docker-compose down"
+//                                      execCommand: "export DOCKER_IMAGE=${env.DOCKER_IMAGE} && export DOCKER_TAG=fe-latest && cd ${env.DEPLOY_DIR} && docker-compose down"
                                  ),
                                  sshTransfer(
                                     execCommand: "docker rmi ${env.DOCKER_IMAGE}:fe-latest"
@@ -77,7 +78,8 @@ pipeline {
                                     sourceFiles: "${env.COMPOSE_FILE}",
                                     //removePrefix: "./",
                                     remoteDirectory: "${env.DEPLOY_DIR}",
-                                    execCommand: "export DOCKER_IMAGE=${env.DOCKER_IMAGE} && export DOCKER_TAG=fe-latest && cd ${env.DEPLOY_DIR} && docker-compose up -d"
+                                     execCommand: "export DOCKER_IMAGE=tampfptcapstoneproject/tamp && export DOCKER_TAG=fe-latest && cd ${env.DEPLOY_DIR} && docker-compose up -d"
+//                                     execCommand: "export DOCKER_IMAGE=${env.DOCKER_IMAGE} && export DOCKER_TAG=fe-latest && cd ${env.DEPLOY_DIR} && docker-compose up -d"
                                   )
                              ])
                            ])
