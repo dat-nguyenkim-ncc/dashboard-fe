@@ -1,6 +1,19 @@
+# version: '3'
+# services:
+#   datdashboard:
+#     image: $DOCKER_IMAGE:$DOCKER_TAG
+#     volumes:
+#       - '.:/app'
+#       - '/app/node_modules'
+#     ports:
+#       - 80:80
+#     environment:
+#       - AWS_ACCESS_KEY_ID=""
+#       - AWS_SECRET_ACCESS_KEY=""
+
 version: '3'
 services:
-  datdashboard:
+  tamp:
     image: $DOCKER_IMAGE:$DOCKER_TAG
     volumes:
       - '.:/app'
@@ -8,5 +21,4 @@ services:
     ports:
       - 80:80
     environment:
-      - AWS_ACCESS_KEY_ID=""
-      - AWS_SECRET_ACCESS_KEY=""
+      - CHOKIDAR_USEPOLLING=true
