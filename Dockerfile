@@ -24,7 +24,7 @@ WORKDIR /app
 # RUN npm install react-scripts@3.4.1 -g --silent
 COPY . ./
 RUN npm install
-RUN npm run test
+# RUN npm run test
 RUN npm run build
 
 
