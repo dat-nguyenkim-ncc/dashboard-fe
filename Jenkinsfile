@@ -20,30 +20,30 @@ pipeline {
                 //
             }
         }
-        stage("build") {
-            when {
-                branch 'master'
-            }
-            steps {
-                sh "docker build -t ${env.DOCKER_IMAGE}:${env.DOCKER_TAG} ."
-                withCredentials([usernamePassword(credentialsId: 'docker-hub', passwordVariable: 'pass', usernameVariable: 'user')]) {
-                    sh "docker login -u $user -p $pass"
-                }
-                script {
-                    if (GIT_BRANCH ==~ /.*master.*/) {
-                        sh "docker tag ${env.DOCKER_IMAGE}:${env.DOCKER_TAG} ${env.DOCKER_IMAGE}:fe-latest"
-                        sh "docker push ${env.DOCKER_IMAGE}:fe-latest"
-                        //env.DOCKER_TAG = "latest"
-                        sh "docker rmi ${env.DOCKER_IMAGE}:fe-latest"
-                    } else {
-                        sh "docker push ${env.DOCKER_IMAGE}:${env.DOCKER_TAG}"
-                    }
-                }
-                sh "docker image ls | grep ${env.DOCKER_TAG}"
-                sh "docker rmi ${env.DOCKER_IMAGE}:${env.DOCKER_TAG}"
-                sh 'docker rmi $(docker images -f "dangling=true" -q)'
-            }
-        }
+//         stage("build") {
+//             when {
+//                 branch 'master'
+//             }
+//             steps {
+//                 sh "docker build -t ${env.DOCKER_IMAGE}:${env.DOCKER_TAG} ."
+//                 withCredentials([usernamePassword(credentialsId: 'docker-hub', passwordVariable: 'pass', usernameVariable: 'user')]) {
+//                     sh "docker login -u $user -p $pass"
+//                 }
+//                 script {
+//                     if (GIT_BRANCH ==~ /.*master.*/) {
+//                         sh "docker tag ${env.DOCKER_IMAGE}:${env.DOCKER_TAG} ${env.DOCKER_IMAGE}:fe-latest"
+//                         sh "docker push ${env.DOCKER_IMAGE}:fe-latest"
+//                         //env.DOCKER_TAG = "latest"
+//                         sh "docker rmi ${env.DOCKER_IMAGE}:fe-latest"
+//                     } else {
+//                         sh "docker push ${env.DOCKER_IMAGE}:${env.DOCKER_TAG}"
+//                     }
+//                 }
+//                 sh "docker image ls | grep ${env.DOCKER_TAG}"
+//                 sh "docker rmi ${env.DOCKER_IMAGE}:${env.DOCKER_TAG}"
+//                 sh 'docker rmi $(docker images -f "dangling=true" -q)'
+//             }
+//         }
         stage('SSH transfer') {
                 when {
                     branch 'master'
